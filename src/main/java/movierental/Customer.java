@@ -27,7 +27,7 @@ public class Customer {
 
         for (Rental rental : rentals) {
             double amount = amountForRentalLine(rental);
-            frequentRenterPoints = countFrequentRenterPoints(frequentRenterPoints, rental);
+            frequentRenterPoints += (isDayOfNewRelease(rental)) ? 2 : 1;
             result.append(showFiguresRental(rental, amount));
             totalAmount += amount;
         }
