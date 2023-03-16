@@ -23,19 +23,18 @@ public class Customer {
     public String statement() {
         double totalAmount = 0;
         int frequentRenterPoints = 0;
-        String result = firstLine();
+        StringBuilder result = new StringBuilder(firstLine());
 
         for (Rental rental : rentals) {
-            double amount=0;
-            amount = amountForRentalLine(rental, amount);
+            double amount = amountForRentalLine(rental);
             frequentRenterPoints = countFrequentRenterPoints(frequentRenterPoints, rental);
-            result += showFiguresRental(rental, amount);
+            result.append(showFiguresRental(rental, amount));
             totalAmount += amount;
         }
 
-        result += footerLines(totalAmount, frequentRenterPoints);
+        result.append(footerLines(totalAmount, frequentRenterPoints));
 
-        return result;
+        return result.toString();
     }
 
     private static int countFrequentRenterPoints(int frequentRenterPoints, Rental rental) {
@@ -50,7 +49,8 @@ public class Customer {
         return (rental.getMovie().getPriceCode() == PriceCode.NEW_RELEASE) && rental.getDaysRented() > 1;
     }
 
-    private static double amountForRentalLine(Rental rental, double amount) {
+    private static double amountForRentalLine(Rental rental) {
+        double amount = 0;
         switch (rental.getMovie().getPriceCode()) {
             case REGULAR -> amount = amountRegular(rental);
             case NEW_RELEASE -> amount = amountNewRelease(rental);
