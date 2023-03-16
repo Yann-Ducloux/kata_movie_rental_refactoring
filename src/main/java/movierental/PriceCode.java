@@ -6,9 +6,6 @@ public enum PriceCode {
     NEW_RELEASE(1),
     CHILDRENS(2);
 
-    private final int state;
-
     PriceCode(int state) {
-        this.state = state;
     }
 }
